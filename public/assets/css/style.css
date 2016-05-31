@@ -1,0 +1,9 @@
+button,input{ outline: none; }
+.panel{ border:none; box-shadow: 1px 2px 3px -1px rgba(30,30,30,.30);border-radius: 0; }
+.panel-body{padding:0;}
+ul { padding:0; margin:0;list-style: none; }
+ul li{ padding:15px 18px;text-align: left;font-weight: 400;font-size: 15px;position: relative; }
+li:hover { background-color: #F7F7F7; }
+.action{position: absolute;right: 20px;top: 15px;}
+.edit-btn,.done-btn{ background:none; border:none; font-size: 14px;}
+input.todoinput{ width: 100%;border:none;padding:15px 15px;border-bottom: 1px solid rgba(0,0,0,.30);  }
