@@ -21,11 +21,9 @@ class TodoController extends Controller
 
     public function get(Request $request,$id)
     {
-    	$id = $id;
     	$todo = Todo::find($id);
-    	if(empty($todo)){
+    	if(empty($todo))
     		return response()->json(['message'=>'something wrong'],404);
-    	}
 
     	return response()->json(['message'=>'success','todo'=>$todo],200);
     }
@@ -35,13 +33,10 @@ class TodoController extends Controller
     	if(! $request->ajax()) 
     		return redirect('/');
 
-    	$validator = Validator::make($request->all(),[
-    			'name' => 'required',
-    		]);
+    	$validator = $this->validate($request);
     	
-    	if($validator->fails()){
+    	if($validator->fails())
     		return response()->json(['message'=>'something wrong'],400);
-    	}
     	
     	$todo = new Todo;
     	$todo->name = htmlspecialchars($request->name);
@@ -55,17 +50,16 @@ class TodoController extends Controller
     	if(! $request->ajax()) 
     		return redirect('/');
 
-    	$validator = Validator::make($request->all(),[
-    			'name' => 'required',
-    		]);
+    	$validator = $this->validate($request);
     	
     	if($validator->fails()){
     		return response()->json(['message'=>'something wrong'],400);
     	}
     	
     	$todo = Todo::find($request->id);
-		if(empty($todo))
-			return response()->json(['message'=>'something wrong'],404);
+    	
+	if(empty($todo))
+		return response()->json(['message'=>'something wrong'],404);
 
     	$todo->name = htmlspecialchars($request->name);
     	$todo->status="active";
@@ -78,13 +72,23 @@ class TodoController extends Controller
     		return redirect('/');
 
     	$todo = Todo::find($request->id);
-		if(empty($todo))
-			return response()->json(['message'=>'something wrong'],404);
+	if(empty($todo))
+		return response()->json(['message'=>'something wrong'],404);
 
     	$todo->status="done";
     	$todo->done_at=Carbon::now();
     	$todo->save();
 
     	return response()->json(['message'=>'success','todo'=>$todo],200);
+    }
+    
+    public function validate($request){
+    	return Validator::make($request->all(),$this->rules());
+    }
+    
+    public function rules(){
+    	
+    	return ['name' => 'required'];
+    	
     }
 }
