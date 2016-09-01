@@ -124,7 +124,7 @@
 
 			$.ajax({
 				type :"GET",
-				url : "{{url('')}}"+"/todo/"+id,
+				url : "{{url('todo/')}}"+id,
 				dataType: 'json',
 				beforeSend: function(e){
 					$("#log").html("loading..");
