@@ -52,9 +52,8 @@ class TodoController extends Controller
 
     	$validator = $this->validate($request);
     	
-    	if($validator->fails()){
+    	if($validator->fails())
     		return response()->json(['message'=>'something wrong'],400);
-    	}
     	
     	$todo = Todo::find($request->id);
     	
